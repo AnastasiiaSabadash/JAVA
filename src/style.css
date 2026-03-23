@@ -1,0 +1,25 @@
+/* Сірий фон для всієї сторінки */
+body {
+  margin: 0;
+  background-color: #f2f2f2; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  font-family: sans-serif;
+}
+
+/* Контейнер, щоб текст і фото були по центру */
+.centered-wrapper {
+  text-align: center;
+  background-color: white;
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+/* Щоб картинка теж була по центру */
+img {
+  display: block;
+  margin: 0 auto 15px auto;
+}
