@@ -16,7 +16,7 @@ onMounted(async () => {
   const response = await fetch('/cosmetic');
   const data = await response.json();
   
-  //зміна: підставляємо твоє фото в imageUrl
+  //зміна: підставляємо фото в imageUrl
   data.imageUrl = myPhoto; 
   cosmetics.value = data;
 });
