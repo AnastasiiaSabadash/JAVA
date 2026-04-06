@@ -11,7 +11,7 @@ build: {
 server: {
   proxy: {
     '/cosmetic': {
-      target:'http://localhost:8181/Lab_2_Cosmetics-1.0-SNAPSHOT/',
+      target:'http://localhost:8181/Lab_3_Cosmetics-1.0-SNAPSHOT/',
       changeOrigin: true,
       secure: false
     }
