@@ -15,19 +15,18 @@
 
     <h3>Список косметики</h3>
     <ul>
-      <li v-for="item in cosmetics" :key="item.id">
-        <h4>{{ item.name }}</h4>
-        <img :src="item.imageUrl" alt="Cosmetic Image" width="150" />
-        <p>{{ item.description }}</p>
-        <p>Об'єм: {{ item.capacity }}</p>
-        <p>Класифікація: {{ item.classification }}</p>
-        <button @click="editCosmetic(item)">Редагувати</button>
-        <button @click="deleteCosmetic(item.id)">Видалити</button>
+      <li v-for="cosmetic in cosmetics" :key="cosmetic.id">
+        <h4>{{ cosmetic.name }}</h4>
+        <img :src="cosmetic.imageUrl" alt="Cosmetic Image" width="150" />
+        <p>{{ cosmetic.description }}</p>
+        <p>Об'єм: {{ cosmetic.capacity }} мл</p>
+        <p>Класифікація: {{ cosmetic.classification }}</p>
+        <button @click="editCosmetic(cosmetic)">Редагувати</button>
+        <button @click="deleteCosmetic(cosmetic.id)">Видалити</button>
       </li>
     </ul>
   </div>
 </template>
-
 <script setup>
 import { ref, onMounted } from "vue";
 
@@ -37,7 +36,7 @@ const isEditing = ref(false);
 
 const fetchCosmetics = async () => {
   try {
-    const response = await fetch("/cosmetic");
+    const response = await fetch("/cosmetic"); // Короткий шлях як у неї
     cosmetics.value = await response.json();
   } catch (error) {
     console.error("Помилка отримання даних:", error);
@@ -46,18 +45,11 @@ const fetchCosmetics = async () => {
 
 const addCosmetic = async () => {
   try {
-    // АВТОМАТИЧНА ПРИВ'ЯЗКА ASSETS
-    // Якщо користувач ввів назву файлу без шляху (наприклад, "bottle1.jpg")
-    if (currentCosmetic.value.imageUrl && !currentCosmetic.value.imageUrl.includes('/')) {
-      currentCosmetic.value.imageUrl = `/src/assets/${currentCosmetic.value.imageUrl}`;
-    }
-
-    const response = await fetch("/cosmetic", {
+    const response = await fetch("/cosmetic", { 
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(currentCosmetic.value),
     });
-
     if (response.ok) {
       fetchCosmetics();
       resetForm();
@@ -67,14 +59,14 @@ const addCosmetic = async () => {
   }
 };
 
-const editCosmetic = (item) => {
-  currentCosmetic.value = { ...item };
+const editCosmetic = (cosmetic) => {
+  currentCosmetic.value = { ...cosmetic };
   isEditing.value = true;
 };
 
 const updateCosmetic = async () => {
   try {
-    const response = await fetch("/cosmetic", {
+    const response = await fetch("/cosmetic", { 
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(currentCosmetic.value),
@@ -90,7 +82,7 @@ const updateCosmetic = async () => {
 
 const deleteCosmetic = async (id) => {
   try {
-    const response = await fetch(`/cosmetic?id=${id}`, { method: "DELETE" });
+    const response = await fetch(`/cosmetic?id=${id}`, { method: "DELETE" }); // Запит з параметром ID
     if (response.ok) fetchCosmetics();
   } catch (error) {
     console.error("Помилка видалення:", error);
@@ -108,17 +100,3 @@ const cancelEdit = () => {
 
 onMounted(fetchCosmetics);
 </script>
-
-<style>
-body {
-  font-family: Arial, sans-serif;
-  max-width: 800px;
-  margin: 20px auto;
-}
-input {
-  display: block;
-  margin: 5px 0;
-  padding: 8px;
-  width: 100%;
-}
-</style>

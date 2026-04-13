@@ -1,77 +1,33 @@
-/* 1. Фон всієї сторінки */
 body {
-  margin: 0;
-  background-color: #f2f2f2; 
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  min-height: 100vh;
-  font-family: sans-serif;
-  padding: 40px 0;
-}
-
-/* 2. Головний білий контейнер (блок по центру) */
-#app > div {
-  text-align: center;
-  background-color: white;
-  padding: 30px;
-  border-radius: 20px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-  width: 100%;
-  max-width: 500px;
-}
-
-/* 3. Стилі для зображень ваших пляшок (assets) */
-img {
-  display: block;
-  margin: 0 auto 15px auto;
-  border-radius: 10px;
-  max-width: 150px; /* Обмежуємо ширину картинки з assets */
-  height: auto;
-}
-
-/* 4. Стилі форми */
-form {
-  margin-bottom: 30px;
-  padding: 20px;
-  background-color: #fafafa;
-  border-radius: 15px;
+  margin: 20px auto;
+  font-family: Arial, sans-serif;
+  max-width: 800px;
 }
 
 input {
   display: block;
-  margin: 10px auto;
-  padding: 10px;
-  width: 90%;
-  border: 1px solid #ddd;
-  border-radius: 8px;
+  margin: 5px 0;
+  padding: 8px;
+  width: 100%;
 }
 
-/* 5. Стилі списку товарів (li) */
+button {
+  margin-top: 10px;
+  margin-right: 5px;
+  cursor: pointer;
+}
+
 ul {
-  list-style: none;
+  list-style-type: none;
   padding: 0;
 }
 
 li {
-  border: 1px solid #eee;
-  border-radius: 15px;
-  padding: 20px;
-  margin-bottom: 20px;
-  background-color: white;
+  border-bottom: 1px solid #ccc;
+  padding: 10px 0;
 }
 
-/* 6. Кнопки */
-button {
-  padding: 8px 16px;
-  margin: 5px;
-  border-radius: 6px;
-  border: none;
-  cursor: pointer;
-  background-color: #4CAF50;
-  color: white;
-}
-
-button:hover {
-  opacity: 0.8;
+img {
+  display: block;
+  margin: 10px 0;
 }
