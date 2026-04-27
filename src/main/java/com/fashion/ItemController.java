@@ -1,8 +1,10 @@
 package com.fashion;
 
 import com.fashion.model.FashionItem;
+import com.fashion.ItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @RestController
@@ -20,7 +22,18 @@ public class ItemController {
     }
 
     @PostMapping
-    public FashionItem saveOrUpdateItem(@RequestBody FashionItem item) {
+    public FashionItem createItem(@RequestBody FashionItem item) {
+        return repository.save(item);
+    }
+
+    @PutMapping("/{id}")
+    public FashionItem updateItem(@PathVariable Long id, @RequestBody FashionItem itemDetails) {
+        FashionItem item = repository.findById(id).orElseThrow();
+
+        item.setName(itemDetails.getName());
+        item.setDescription(itemDetails.getDescription());
+        item.setBrand(itemDetails.getBrand());
+
         return repository.save(item);
     }
 
