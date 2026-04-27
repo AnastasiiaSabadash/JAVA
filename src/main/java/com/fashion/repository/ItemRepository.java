@@ -1,4 +1,4 @@
-package com.fashion;
+package com.fashion.repository;
 
 import com.fashion.model.FashionItem;
 import org.springframework.data.jpa.repository.JpaRepository;
