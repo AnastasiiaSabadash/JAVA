@@ -12,29 +12,30 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequestMapping("/api/items")
-@RequiredArgsConstructor // Використовуємо замість @Autowired для консистентності з іншими класами
+@RequiredArgsConstructor
 public class ItemController {
 
     private final ItemRepository itemRepository;
 
-    // 1. Дозволяємо перегляд усім авторизованим користувачам (ROLE_USER та ROLE_ADMIN)
+    // 1. Дозволяємо перегляд усім автентифікованим користувачам
     @GetMapping
-    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
+    @PreAuthorize("isAuthenticated()")
     public List<FashionItem> getAllItems() {
         log.info("Отримання списку товарів");
         return itemRepository.findAll();
     }
 
-    // 2. Дозволяємо створення, оновлення та видалення ТІЛЬКИ адміністратору
+    // 2. Дозволяємо створення усім автентифікованим користувачам
     @PostMapping
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("isAuthenticated()")
     public FashionItem createItem(@RequestBody FashionItem item) {
         log.info("Додавання нового товару: {}", item.getName());
         return itemRepository.save(item);
     }
 
+    // 3. Дозволяємо оновлення усім автентифікованим користувачам
     @PutMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("isAuthenticated()")
     public FashionItem updateItem(@PathVariable Long id, @RequestBody FashionItem itemDetails) {
         log.info("Оновлення товару з id: {}", id);
         FashionItem item = itemRepository.findById(id)
@@ -47,8 +48,9 @@ public class ItemController {
         return itemRepository.save(item);
     }
 
+    // 4. Дозволяємо видалення усім автентифікованим користувачам
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("isAuthenticated()")
     public void deleteItem(@PathVariable Long id) {
         log.info("Видалення товару з id: {}", id);
         itemRepository.deleteById(id);
